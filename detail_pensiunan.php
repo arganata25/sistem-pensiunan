@@ -89,9 +89,18 @@ function display_datetime_detail($date_string) { if (!empty($date_string) && $da
                 <p class="text-lg text-gray-500">NIP: <?php echo htmlspecialchars($pensiunan['nip']); ?></p>
             </div>
             <div class="flex flex-wrap gap-2">
-                <a href="generate_surat.php?id=<?php echo $pensiunan['id']; ?>" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300"><i class="fas fa-print mr-2"></i>Cetak Surat</a>
-                <a href="export_pdf_detail.php?id=<?php echo $pensiunan['id']; ?>" target="_blank" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300"><i class="fas fa-file-pdf mr-2"></i>Cetak Detail</a>
-                <a href="form_pensiunan.php?action=edit&id=<?php echo $pensiunan['id']; ?>" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300"><i class="fas fa-pencil-alt mr-2"></i>Edit Data</a>
+                <?php if ($_SESSION['role'] === 'admin'): ?>
+                <a href="generate_surat.php?id=<?php echo $pensiunan['id']; ?>" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                    <i class="fas fa-print mr-2"></i>Cetak Surat Keterangan
+                </a>
+                <?php endif; ?>
+                
+                <a href="export_pdf_detail.php?id=<?php echo $pensiunan['id']; ?>" target="_blank" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                    <i class="fas fa-file-pdf mr-2"></i>Cetak Detail
+                </a>
+                <a href="form_pensiunan.php?action=edit&id=<?php echo $pensiunan['id']; ?>" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                    <i class="fas fa-pencil-alt mr-2"></i>Edit Data
+                </a>
             </div>
         </div>
 
@@ -172,15 +181,9 @@ function display_datetime_detail($date_string) { if (!empty($date_string) && $da
         <p class="text-gray-600 mt-2">Maaf, data pensiunan dengan ID yang Anda minta tidak dapat ditemukan di sistem.</p>
     </div>
 <?php endif; ?>
-
-<!-- Modal Konfirmasi Hapus -->
 <div id="deleteModal" class="fixed inset-0 flex items-center justify-center z-50 hidden bg-black bg-opacity-50">
-    <!-- Konten modal akan diisi oleh JavaScript -->
 </div>
 
-<!-- ================================================================= -->
-<!-- SCRIPT BARU UNTUK MODAL HAPUS DOKUMEN                             -->
-<!-- ================================================================= -->
 <script>
 function confirmDocumentDelete(pensiunanId, docId, docName) {
     const modal = document.getElementById('deleteModal');
